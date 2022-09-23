@@ -4,6 +4,8 @@ require('flatpickr/dist/flatpickr.min.css');
 const dateInput = document.querySelector('#datetime-picker');
 const dateBtn = document.querySelector('[data-start]');
 
+class Time {}
+
 function btnActivator(btn) {
   btn.disabled = false;
 }
