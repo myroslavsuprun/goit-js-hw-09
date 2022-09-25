@@ -1,3 +1,5 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 const ref = {
   form: document.querySelector('form'),
   delay: document.querySelector('[data-delay]'),
@@ -9,31 +11,33 @@ ref.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  const delay = ref.delay.value;
-  const step = ref.step.value;
-  const amount = ref.amount.value;
-  setTimeout(createPromiseLoop, delay, amount, step);
-}
 
-function createPromiseLoop(amount, step) {
+  delay = parseInt(ref.delay.value);
+  step = parseInt(ref.step.value);
+  amount = parseInt(ref.amount.value);
+
   for (let i = 1; i <= amount; i += 1) {
-    createPromise(step)
+    createPromise(i, delay + step * (i - 1))
       .then(value => {
-        console.log(value);
+        Notify.success(value);
       })
       .catch(value => {
-        console.log(value);
+        Notify.failure(value);
       });
   }
+
+  e.target.reset();
 }
 
-function createPromise() {
+function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   return new Promise((resolve, reject) => {
-    if (shouldResolve) {
-      resolve('Succesful fullfilling');
-    } else {
-      reject('Failed to fullfill');
-    }
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      } else {
+        reject(`❌ Rejected promise ${position} in ${delay}ms`);
+      }
+    }, delay);
   });
 }
