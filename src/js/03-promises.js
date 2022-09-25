@@ -12,9 +12,9 @@ ref.form.addEventListener('submit', onFormSubmit);
 function onFormSubmit(e) {
   e.preventDefault();
 
-  delay = parseInt(ref.delay.value);
-  step = parseInt(ref.step.value);
-  amount = parseInt(ref.amount.value);
+  const delay = parseInt(ref.delay.value);
+  const step = parseInt(ref.step.value);
+  const amount = parseInt(ref.amount.value);
 
   for (let i = 1; i <= amount; i += 1) {
     createPromise(i, delay + step * (i - 1))
