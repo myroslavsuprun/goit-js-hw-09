@@ -4,6 +4,8 @@ const ref = {
   body: document.querySelector('body'),
 };
 
+let timerId = 0;
+
 ref.startBtn.addEventListener('click', onStartClick);
 ref.stopBtn.addEventListener('click', onStopClick);
 
